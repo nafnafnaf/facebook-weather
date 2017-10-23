@@ -8,7 +8,7 @@ from flask import Flask, request
 #=========================================================
 import unicodedata
 from urllib2 import urlopen as uReq
-import beautifulsoup4 as soup
+from bs4 import BeautifulSoup as soup
 url = 'http://www.meteokav.gr/weather/'
 client = uReq(url)
 page = client.read()
