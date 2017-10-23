@@ -51,7 +51,7 @@ def webhook():
                     pass
 
     return "ok", 200
-x = "aladslkj"
+x = [1, 4, 0]
 
 def send_message(recipient_id, message_text):
     log("sending message to {recipient}: {text}".format(recipient=recipient_id, text=message_text))
