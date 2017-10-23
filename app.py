@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 import os
 import sys
 import json
@@ -16,9 +15,9 @@ page = client.read()
 client.close()
 page_soup = soup(page, "html.parser")
 
-values ='Αίσθηση σαν: ' + page_soup.find("span", {"id":"ajaxfeelslike"}).text.strip()
-y = decode(values)
-uni_values = y #unicodedata.normalize('NFKD', y).encode('ascii', 'ignore')
+values =page_soup.find_all("strong")[20].text.strip() +' '+ page_soup.find("span", {"id":"ajaxdew"}).text.strip()
+y = values
+uni_values = unicodedata.normalize('NFKD', y).encode('ascii', 'ignore')
 
 
 
