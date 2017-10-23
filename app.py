@@ -15,7 +15,7 @@ page = client.read()
 client.close()
 page_soup = soup(page, "html.parser")
 
-
+values = [page_soup.find_all("strong")[21].text.strip() +' '+ page_soup.find("span", {"id":"ajaxbaro"}).text.strip() +" "+ page_soup.find("span", {"id":"ajaxbarotrendtext"}).text.strip()]
 
 
 
@@ -42,7 +42,7 @@ def webhook():
     data = request.get_json()
     log(data)  # you may not want to log every incoming message in production, but it's good for testing
     x = [1, 4, 0]
-    y = str(x)
+    y = str(values)
     if data["object"] == "page":
 
         for entry in data["entry"]:
