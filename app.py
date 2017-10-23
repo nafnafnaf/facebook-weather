@@ -43,8 +43,12 @@ def webhook():
     # endpoint for processing incoming messaging events
     data = request.get_json()
     log(data)  # you may not want to log every incoming message in production, but it's good for testing
-    x = [1, 4, 0]
-    if data["object"] == "page":
+def values(recipient_id, message_text):
+    values = {'thermo':'28','humid':'47','temp_diff':'-44','baro':'44'}
+    if message_text in values:
+        values(recipient_id, values[message_text])
+    else:
+        values(recipient_id, "say")    if data["object"] == "page":
 
         for entry in data["entry"]:
             for messaging_event in entry["messaging"]:
@@ -67,12 +71,7 @@ def webhook():
                     pass
 
     return "ok", 200
-def values(recipient_id, message_text):
-    values = {'thermo':'28','humid':'47','temp_diff':'-44','baro':'44'}
-    if message_text in values:
-        values(recipient_id, values[message_text])
-    else:
-        values(recipient_id, "say")
+
 def send_message(recipient_id, message_text):
     log("sending message to {recipient}: {text}".format(recipient=recipient_id, text=message_text))
 
