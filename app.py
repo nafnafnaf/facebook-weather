@@ -5,7 +5,21 @@ from datetime import datetime
 
 import requests
 from flask import Flask, request
+#=========================================================
+import unicodedata
+from urllib2 import urlopen as uReq
+from bs4 import BeautifulSoup as soup
+url = 'http://www.meteokav.gr/weather/'
+client = uReq(url)
+page = client.read()
+client.close()
+page_soup = soup(page, "html.parser")
 
+
+
+
+
+#=========================================================
 app = Flask(__name__)
 
 
