@@ -15,9 +15,9 @@ page = client.read()
 client.close()
 page_soup = soup(page, "html.parser")
 
-values = 'ελαχιστη χτες' +page_soup.find_all("strong")[20].text.strip() +' '+ page_soup.find("span", {"id":"ajaxdew"}).text.strip()
-y = values
-uni_values = unicodedata.normalize('NFKD', y).encode('ascii', 'ignore')
+
+#for i in values:
+  #  return(unicodedata.normalize('NFKD',i).encode('ascii', 'ignore'), values[i])
 
 
 
@@ -55,7 +55,7 @@ def webhook():
                     recipient_id = messaging_event["recipient"]["id"]  # the recipient's ID, which should be your page's facebook ID
                     message_text = messaging_event["message"]["text"]  # the message's text
 
-                    send_message(sender_id, uni_values)
+                    values(sender_id, message_text)
 
                 if messaging_event.get("delivery"):  # delivery confirmation
                     pass
@@ -67,7 +67,12 @@ def webhook():
                     pass
 
     return "ok", 200
-
+def values(recipient_id, message_text):
+    values = {'thermo':'28','humid':'47','temp_diff':'-44','baro':'44'}
+    if message_text in values:
+        reply(recipient_id, values[message_text])
+    else:
+        reply(recipient_id, "say")
 def send_message(recipient_id, message_text):
     log("sending message to {recipient}: {text}".format(recipient=recipient_id, text=message_text))
 
