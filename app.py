@@ -20,7 +20,7 @@ def scrape():
     uni_values = unicodedata.normalize('NFKD', y).encode('ascii', 'ignore')
     return uni_values
 
-
+sc = scrape()
 #=========================================================
 app = Flask(__name__)
 
@@ -55,7 +55,7 @@ def webhook():
                     recipient_id = messaging_event["recipient"]["id"]  # the recipient's ID, which should be your page's facebook ID
                     message_text = messaging_event["message"]["text"]  # the message's text
 
-                    send_message(sender_id, scrape())
+                    send_message(sender_id, sc)
 
                 if messaging_event.get("delivery"):  # delivery confirmation
                     pass
