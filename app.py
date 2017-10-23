@@ -9,6 +9,7 @@ from flask import Flask, request
 app = Flask(__name__)
 
 
+
 @app.route('/', methods=['GET'])
 def verify():
     # when the endpoint is registered as a webhook, it must echo back
@@ -52,9 +53,11 @@ def webhook():
                     pass
 
     return "ok", 200
+def scrap():
+    x = [1, 4, 3]
+    return x
 
-
-def send_message(recipient_id, message_text):
+def send_message(recipient_id, scrap()):
 
     log("sending message to {recipient}: {text}".format(recipient=recipient_id, text=message_text))
 
@@ -69,7 +72,7 @@ def send_message(recipient_id, message_text):
             "id": recipient_id
         },
         "message": {
-            "text": message_text
+            "text": scrap()
         }
     })
     r = requests.post("https://graph.facebook.com/v2.6/me/messages", params=params, headers=headers, data=data)
