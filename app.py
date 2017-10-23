@@ -15,7 +15,7 @@ page = client.read()
 client.close()
 page_soup = soup(page, "html.parser")
 
-values =page_soup.find_all("strong")[20].text.strip() +' '+ page_soup.find("span", {"id":"ajaxdew"}).text.strip()
+values = 'ελαχιστη χτες' +page_soup.find_all("strong")[20].text.strip() +' '+ page_soup.find("span", {"id":"ajaxdew"}).text.strip()
 y = values
 uni_values = unicodedata.normalize('NFKD', y).encode('ascii', 'ignore')
 
