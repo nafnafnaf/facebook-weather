@@ -1,56 +1,82 @@
-# -*- coding: utf-8 -*-
-import json, urllib
-from flask import Flask, request, abort
-import urlfetch
+import os
+import sys
+import json
+from datetime import datetime
 
+import requests
+from flask import Flask, request
+#=========================================================
+import unicodedata
+from urllib2 import urlopen as uReq
+from bs4 import BeautifulSoup as soup
+url = 'http://www.meteokav.gr/weather/'
+client = uReq(url)
+page = client.read()
+client.close()
+page_soup = soup(page, "html.parser")
+
+values = page_soup.find("span", {"id":"ajaxdew"}).text.strip()
+y = values
+uni_values = unicodedata.normalize('NFKD', y).encode('ascii', 'ignore')
+
+
+
+#=========================================================
 app = Flask(__name__)
 
-access_token = 'EAAW895WLezkBAGisDrIsZBuazNgk2Ll8fnpjbtg1wXOrJu3aYyFVLrCg3ZABUD3S70vEZAWHsbeYR4lKSm8mrbIdkZAimsAo9FHEHkbZCZBW89Wy56mYWlDyTmD5bzQAFSscMNkBJxbH7KfaVGgCZAo5gIin0SQeBmLRvRzdIstSwZDZD'
+
+@app.route('/', methods=['GET'])
+def verify():
+    # when the endpoint is registered as a webhook, it must echo back
+    # the 'hub.challenge' value it receives in the query arguments
+    if request.args.get("hub.mode") == "subscribe" and request.args.get("hub.challenge"):
+        if not request.args.get("hub.verify_token") == os.environ["VERIFY_TOKEN"]:
+            return "Verification token mismatch", 403
+        return request.args["hub.challenge"], 200
+
+    return "Hello world", 200
 
 
-@app.route("/", methods=["GET"])
-def root():
-    return "Hello World!"
+@app.route('/', methods=['POST'])
+def webhook():
 
-
-# webhook for facebook to initialize the bot
-@app.route('/webhook', methods=['GET'])
-def get_webhook():
-
-    if not 'hub.verify_token' in request.args or not 'hub.challenge' in request.args:
-        abort(400)
-
-    return request.args.get('hub.challenge')
-
-
-@app.route('/webhook', methods=['POST'])
-def post_webhook():
-    data = request.json
-
+    # endpoint for processing incoming messaging events
+    data = request.get_json()
+    log(data)  # you may not want to log every incoming message in production, but it's good for testing
+    x = [1, 4, 0]
     if data["object"] == "page":
-        for entry in data['entry']:
-            for messaging_event in entry['messaging']:
 
-                if "message" in messaging_event:
+        for entry in data["entry"]:
+            for messaging_event in entry["messaging"]:
 
-                    sender_id = messaging_event['sender']['id']
+                if messaging_event.get("message"):  # someone sent us a message
 
-                    if 'text' in messaging_event['message']:
-                        message_text = messaging_event['message']['text']
-                        reply(sender_id, message_text)
+                    sender_id = messaging_event["sender"]["id"]        # the facebook ID of the person sending you the message
+                    recipient_id = messaging_event["recipient"]["id"]  # the recipient's ID, which should be your page's facebook ID
+                    message_text = messaging_event["message"]["text"]  # the message's text
+
+                    send_message(sender_id, uni_values)
+
+                if messaging_event.get("delivery"):  # delivery confirmation
+                    pass
+
+                if messaging_event.get("optin"):  # optin confirmation
+                    pass
+
+                if messaging_event.get("postback"):  # user clicked/tapped "postback" button in earlier message
+                    pass
 
     return "ok", 200
 
+def send_message(recipient_id, message_text):
+    log("sending message to {recipient}: {text}".format(recipient=recipient_id, text=message_text))
 
-def reply(recipient_id, message_text):
     params = {
-        "access_token": access_token
+        "access_token": os.environ["PAGE_ACCESS_TOKEN"]
     }
-
     headers = {
         "Content-Type": "application/json"
     }
-
     data = json.dumps({
         "recipient": {
             "id": recipient_id
@@ -59,8 +85,23 @@ def reply(recipient_id, message_text):
             "text": message_text
         }
     })
+    r = requests.post("https://graph.facebook.com/v2.6/me/messages", params=params, headers=headers, data=data)
+    if r.status_code != 200:
+        log(r.status_code)
+        log(r.text)
 
-    print data
 
-    url = "https://graph.facebook.com/v2.6/me/messages?" + urllib.urlencode(params)
-    r = urlfetch.fetch(url=url, headers=headers, method='POST', payload=data)
+def log(msg, *args, **kwargs):  # simple wrapper for logging to stdout on heroku
+    try:
+        if type(msg) is dict:
+            msg = json.dumps(msg)
+        else:
+            msg = unicode(msg).format(*args, **kwargs)
+        print u"{}: {}".format(datetime.now(), msg)
+    except UnicodeEncodeError:
+        pass  # squash logging errors in case of non-ascii text
+    sys.stdout.flush()
+
+
+if __name__ == '__main__':
+    app.run(debug=True)

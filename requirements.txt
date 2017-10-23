@@ -9,4 +9,3 @@ requests==2.10.0
 wsgiref==0.1.2
 beautifulsoup4==4.6.0
 unicodedata2==10.0.0
-urlfetch>=1.0.2
