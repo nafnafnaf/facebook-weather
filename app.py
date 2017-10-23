@@ -51,10 +51,9 @@ def webhook():
                     pass
 
     return "ok", 200
-
+x = "lskjfdl;akj"
 
 def send_message(recipient_id, message_text):
-    x = "lskjfdl;akj"
     log("sending message to {recipient}: {text}".format(recipient=recipient_id, text=message_text))
 
     params = {
