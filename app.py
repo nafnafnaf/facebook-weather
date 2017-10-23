@@ -17,8 +17,8 @@ client.close()
 page_soup = soup(page, "html.parser")
 
 values ='Αίσθηση σαν: ' + page_soup.find("span", {"id":"ajaxfeelslike"}).text.strip()
-y = values
-uni_values = unicodedata.normalize('NFKD', y).encode('ascii', 'ignore')
+y = decode(values)
+uni_values = y #unicodedata.normalize('NFKD', y).encode('ascii', 'ignore')
 
 
 
