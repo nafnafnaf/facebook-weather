@@ -9,15 +9,15 @@ from flask import Flask, request
 import unicodedata
 from urllib2 import urlopen as uReq
 from bs4 import BeautifulSoup as soup
-url = 'http://www.meteokav.gr/weather/'
-client = uReq(url)
-page = client.read()
-client.close()
-page_soup = soup(page, "html.parser")
-
-values = page_soup.find("span", {"id":"ajaxdew"}).text.strip()
-y = values
-uni_values = unicodedata.normalize('NFKD', y).encode('ascii', 'ignore')
+def Scrape():
+    url = 'http://www.meteokav.gr/weather/'
+    client = uReq(url)
+    page = client.read()
+    client.close()
+    page_soup = soup(page, "html.parser")
+    values = page_soup.find("span", {"id":"ajaxdew"}).text.strip()
+    #y = values
+    #uni_values = unicodedata.normalize('NFKD', y).encode('ascii', 'ignore')
 
 
 
