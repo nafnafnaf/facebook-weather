@@ -70,9 +70,9 @@ def webhook():
 def values(recipient_id, message_text):
     values = {'thermo':'28','humid':'47','temp_diff':'-44','baro':'44'}
     if message_text in values:
-        reply(recipient_id, values[message_text])
+        values(recipient_id, values[message_text])
     else:
-        reply(recipient_id, "say")
+        values(recipient_id, "say")
 def send_message(recipient_id, message_text):
     log("sending message to {recipient}: {text}".format(recipient=recipient_id, text=message_text))
 
