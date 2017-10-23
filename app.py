@@ -15,8 +15,8 @@ page = client.read()
 client.close()
 page_soup = soup(page, "html.parser")
 
-values = [page_soup.find_all("strong")[21].text.strip() +' '+ page_soup.find("span", {"id":"ajaxbaro"}).text.strip() +" "+ page_soup.find("span", {"id":"ajaxbarotrendtext"}).text.strip()]
-y = str(values)
+values = page_soup.find_all("strong")[21].text.strip() +' '+ page_soup.find("span", {"id":"ajaxbaro"}).text.strip() +" "+ page_soup.find("span", {"id":"ajaxbarotrendtext"}).text.strip()
+y = values
 uni_values = unicodedata.normalize('NFKD', y).encode('ascii', 'ignore')
 
 
