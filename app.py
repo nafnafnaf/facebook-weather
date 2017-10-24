@@ -39,9 +39,9 @@ def scrape():
     ["MAX_Baro: " + page_soup.find("td", {"rowspan":"3"}).find_all("tr")[6].find_all("td")[1].text.strip()[0:10] +"@"  + page_soup.find("td", {"rowspan":"3"}).find_all("tr")[6].find_all("td")[1].text.strip()[-5:]],
     ["MIN_Baro: " + page_soup.find("td", {"rowspan":"3"}).find_all("tr")[7].find_all("td")[1].text.strip()[0:10]+"@"+ page_soup.find("td", {"rowspan":"3"}).find_all("tr")[7].find_all("td")[1].text.strip()[-5:]]
      ]
-    y = values_list
+   # y = values_list
     #uni_values = unicodedata.normalize('NFKD', y).encode('ascii', 'ignore')
-    return uni_values
+   # return uni_values
 
 sc = scrape()
 #=========================================================
