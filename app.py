@@ -7,7 +7,7 @@ from datetime import datetime
 import requests
 from flask import Flask, request
 #=========================================================
-import tabulate
+from tabulate import tabulate
 import unicodedata
 from urllib2 import urlopen as uReq
 from bs4 import BeautifulSoup as soup
