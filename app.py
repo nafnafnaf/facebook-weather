@@ -67,7 +67,7 @@ def webhook():
     # endpoint for processing incoming messaging events
     data = request.get_json()
     log(data)  # you may not want to log every incoming message in production, but it's good for testing
-   
+    x = [1, 4, 0]
     if data["object"] == "page":
 
         for entry in data["entry"]:
@@ -78,9 +78,8 @@ def webhook():
                     sender_id = messaging_event["sender"]["id"]        # the facebook ID of the person sending you the message
                     recipient_id = messaging_event["recipient"]["id"]  # the recipient's ID, which should be your page's facebook ID
                     message_text = messaging_event["message"]["text"]  # the message's text
-                    message_image = message_image["message"]["image"] #add some images or Like buttons
-                   
-                    send_message(sender_id, sc, message_image)
+
+                    send_message(sender_id, sc)
 
                 if messaging_event.get("delivery"):  # delivery confirmation
                     pass
@@ -93,7 +92,7 @@ def webhook():
 
     return "ok", 200
 
-def send_message(recipient_id, message_text, message_image):
+def send_message(recipient_id, message_text):
     log("sending message to {recipient}: {text}".format(recipient=recipient_id, text=message_text))
 
     params = {
@@ -108,9 +107,6 @@ def send_message(recipient_id, message_text, message_image):
         },
         "message": {
             "text": message_text
-        },
-        "message": {
-            "image": "https://scontent.xx.fbcdn.net/v/t39.1997-6/p100x100/851587_369239346556147_162929011_n.png?_nc_ad=z-m&_nc_cid=0&oh=e01d19872a5c793a6e7ea989f0355fcd&oe=5A7D0FB0"
         }
     })
     r = requests.post("https://graph.facebook.com/v2.6/me/messages", params=params, headers=headers, data=data)
