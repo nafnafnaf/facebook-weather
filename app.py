@@ -41,9 +41,8 @@ def scrape():
      ]
    # y = values_list
     #uni_values = unicodedata.normalize('NFKD', y).encode('ascii', 'ignore')
-   # return uni_values
-
-sc = "hi"
+    return tabulate(values_list)
+sc = scrape()
 #=========================================================
 app = Flask(__name__)
 
