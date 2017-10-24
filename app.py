@@ -79,7 +79,7 @@ def webhook():
                     recipient_id = messaging_event["recipient"]["id"]  # the recipient's ID, which should be your page's facebook ID
                     message_text = messaging_event["message"]["text"]  # the message's text
                     message_image = message_image["message"]["image"] #add some images or Like buttons
-                    send_message(sender_id, sc)
+                    send_message(sender_id, sc, message_image)
 
                 if messaging_event.get("delivery"):  # delivery confirmation
                     pass
