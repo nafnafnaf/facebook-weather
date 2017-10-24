@@ -43,7 +43,7 @@ def scrape():
     #uni_values = unicodedata.normalize('NFKD', y).encode('ascii', 'ignore')
    # return uni_values
 
-sc = scrape()
+sc = "hi"
 #=========================================================
 app = Flask(__name__)
 
