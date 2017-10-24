@@ -11,6 +11,8 @@ from flask import Flask, request
 import unicodedata
 from urllib2 import urlopen as uReq
 from bs4 import BeautifulSoup as soup
+reload(sys)  
+sys.setdefaultencoding('utf8')
 def scrape():
     url = 'http://www.meteokav.gr/weather/'
     client = uReq(url)
