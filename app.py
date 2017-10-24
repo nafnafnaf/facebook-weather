@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 import os
 import sys
 import json
@@ -6,6 +7,7 @@ from datetime import datetime
 import requests
 from flask import Flask, request
 #=========================================================
+
 import unicodedata
 from urllib2 import urlopen as uReq
 from bs4 import BeautifulSoup as soup
