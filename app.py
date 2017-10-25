@@ -79,6 +79,8 @@ def webhook():
                     recipient_id = messaging_event["recipient"]["id"]  # the recipient's ID, which should be your page's facebook ID
                     if "text" in messaging_event["message"]:
                         message_text = messaging_event["message"]["text"]  # the message's text
+                    if "image" in messaging_event["message"]
+                        message_text = message_text["message"]["image"]
 
                     send_message(sender_id, sc)
 
@@ -108,7 +110,9 @@ def send_message(recipient_id, message_text):
         },
         "message": {
             "text": message_text
-        }
+        },
+        "message":{
+             "image": message_text}
     })
     r = requests.post("https://graph.facebook.com/v2.6/me/messages", params=params, headers=headers, data=data)
     if r.status_code != 200:
