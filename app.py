@@ -79,7 +79,7 @@ def webhook():
                     recipient_id = messaging_event["recipient"]["id"]  # the recipient's ID, which should be your page's facebook ID
                     if "text" in messaging_event["message"]:
                         message_text = messaging_event["message"]["text"]  # the message's text
-                    if "image" in messaging_event["message"]
+                    if "image" in messaging_event["message"]:
                         message_text = message_text["message"]["image"]
 
                     send_message(sender_id, sc)
