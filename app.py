@@ -113,8 +113,6 @@ def send_message(recipient_id, message_text):
             "text": message_text
         },
         "message":{
-             "image": message_text},
-        "message":{
               "attachment":{
                  "type":"image",
                  "payload":{
