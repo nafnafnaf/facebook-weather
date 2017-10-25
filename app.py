@@ -80,8 +80,8 @@ def webhook():
                     if "text" in messaging_event["message"]:
                         message_text = messaging_event["message"]["text"]  # the message's text
                    # if "attachment" in messaging_event["message"]:
-                      else:
-                          message_text = message_text["message"]["attachment"]
+                    else:
+                        message_text = message_text["message"]["attachment"]
 
                     send_message(sender_id, message_text)
 
