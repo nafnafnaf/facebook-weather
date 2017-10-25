@@ -115,9 +115,8 @@ def send_message(recipient_id, message_text):
           "attachment":{
            "type":"image", 
             "payload":{
-             "url":"http://www.messenger-rocks.com/image.jpg", 
-              "is_reusable":true
-                     }
+             "url":"http://www.messenger-rocks.com/image.jpg" 
+              
                   }
                }
     })
