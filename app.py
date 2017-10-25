@@ -82,7 +82,7 @@ def webhook():
                     if "attachment" in messaging_event["message"]:
                         message_text = message_text["message"]["attachment"]
 
-                    send_message(sender_id, sc)
+                    send_message(sender_id, message_text)
 
                 if messaging_event.get("delivery"):  # delivery confirmation
                     pass
