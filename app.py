@@ -37,9 +37,9 @@ def scrape():
     ["Ελάχιστη Σήμερα: " + page_soup.find("table", {"class":"data1"}).find_all("tr")[2].find_all("td")[1].text.strip()[0:4]+"@"+ page_soup.find("table", {"class":"data1"}).find_all("tr")[2].find_all("td")[1].text.strip()[-5:]],
     ["Ελάχιστη Χθες: " + page_soup.find("table", {"class":"data1"}).find_all("td")[5].text.strip()[0:4] +"@"+ page_soup.find("table", {"class":"data1"}).find_all("td")[5].text.strip()[-5:]],
     [ page_soup.find_all("strong")[20].text.strip() +" "+ page_soup.find("span", {"id":"ajaxdew"}).text.strip()],
-    ["MAX_"+ page_soup.find_all("strong")[19].text.strip() +" "+ page_soup.find("td", {"rowspan":"3"}).find_all("tr")[1].find_all("td")[1].text.strip()[0:3] +"@"+ page_soup.find("td", {"rowspan":"3"}).find_all("tr")[1].find_all("td")[1].text.strip()[-5:]], 
-    ["MAX_Baro: " + page_soup.find("td", {"rowspan":"3"}).find_all("tr")[6].find_all("td")[1].text.strip()[0:10] +"@"  + page_soup.find("td", {"rowspan":"3"}).find_all("tr")[6].find_all("td")[1].text.strip()[-5:]],
-    ["MIN_Baro: " + page_soup.find("td", {"rowspan":"3"}).find_all("tr")[7].find_all("td")[1].text.strip()[0:10]+"@"+ page_soup.find("td", {"rowspan":"3"}).find_all("tr")[7].find_all("td")[1].text.strip()[-5:]]
+    ["Μέγιστη "+ page_soup.find_all("strong")[19].text.strip() +" "+ page_soup.find("td", {"rowspan":"3"}).find_all("tr")[1].find_all("td")[1].text.strip()[0:3] +"@"+ page_soup.find("td", {"rowspan":"3"}).find_all("tr")[1].find_all("td")[1].text.strip()[-5:]], 
+    ["Μέγιστη πιεση: " + page_soup.find("td", {"rowspan":"3"}).find_all("tr")[6].find_all("td")[1].text.strip()[0:10] +"@"  + page_soup.find("td", {"rowspan":"3"}).find_all("tr")[6].find_all("td")[1].text.strip()[-5:]],
+    ["Ελάχιστη πιεση: " + page_soup.find("td", {"rowspan":"3"}).find_all("tr")[7].find_all("td")[1].text.strip()[0:10]+"@"+ page_soup.find("td", {"rowspan":"3"}).find_all("tr")[7].find_all("td")[1].text.strip()[-5:]]
      ]
     # y = values_list
     #uni_values = unicodedata.normalize('NFKD', y).encode('ascii', 'ignore')
