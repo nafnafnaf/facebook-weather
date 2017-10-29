@@ -21,7 +21,7 @@ def scrape():
     page = client.read()
     client.close()
     page_soup = soup(page, "html.parser")
-    values_list = [
+    values_list = [["niko iwannidi salta kai gamisou"],
     ["Θερμοκρασία:", page_soup.find("span", {"id":"ajaxtemp"}).text.strip()[0:6]],
     [page_soup.find_all("strong")[19].text.strip(), page_soup.find("span", {"id":"ajaxhumidity"}).text.strip()+"%"],
     ["Αίσθηση σαν: " , page_soup.find("span", {"id":"ajaxfeelslike"}).text.strip()],
